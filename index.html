@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>渤海天易园选房模拟系统</title>
+  <link rel="stylesheet" href="./dist/styles.css" type="text/css">
+  <style>
+    .selected {
+      background: red;
+    }
+  </style>
+</head>
+<body>
+<div class="container" id="main">
+</div>
+<script src="./dist/common.js"></script>
+<script src="./dist/index.js"></script>
+<script type="text/template" id="layoutTmpl">
+  <% for(var i = 0; i < templateList.length; i++) { %>
+  <% if(i%3 === 0) { %>
+  <div class="row">
+  <% } %>
+    <div class="col-md-4"><%= templateList[i] %></div>
+  <% if(i%3 === 2 || i === templateList.length - 1) { %>
+  </div>
+  <% } %>
+  <% } %>
+  </script>
+<script type="text/template" id="commonTmpl">
+  <div class="panel panel-default">
+    <!-- Default panel contents -->
+    <div class="panel-heading text-center"><%= config.bNum %>号楼</div>
+    <!-- Table -->
+    <table class="table table-bordered" style="table-layout: fixed;">
+      <tbody>
+        <% var building = config.building; %>
+        <% var room; %>
+        <% for(var f = 1; f <= config.fNum; f++) { %>
+        <tr>
+          <% for(var r = 1; r <= config.rNum; r++) { %>
+          <% room = f + '0' + r; %>
+          <td><%= room %></td>
+          <td class="result"></td>
+          <% } %>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</script>
+</body>
+</html>
