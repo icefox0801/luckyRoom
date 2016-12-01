@@ -3,16 +3,89 @@
 <head>
   <meta charset="UTF-8">
   <title>渤海天易园选房模拟系统</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
   <link rel="stylesheet" href="./dist/styles.css" type="text/css">
   <style>
-    .selected {
-      background: red;
+    #main {
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+    #main .room {
+      padding-left: 0;
+      padding-right: 0;
+      text-align: center;
+    }
+    #main .selected{
+      position: relative;
+    }
+    #main .selected:after {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -10px;
+      margin-left: -10px;
+      background-color: red;
+    }
+    #main .self:after {
+      background-color: green;
+    }
+    .mask:after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.6);
+    }
+    #header .count-down-wrapper {
+      margin: 10px 15px;
+      height: 30px;
+      line-height: 26px;
+    }
+    #header .start {
+      min-width: 60px;
     }
   </style>
 </head>
 <body>
-<div class="container" id="main">
-</div>
+<nav id="header" class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <span class="navbar-brand">渤海天易园选房模拟系统</span>
+      <h3 class="navbar-text pull-right visible-xs-block count-down-wrapper">
+        <span class="label label-warning count-down"></span>
+      </h3>
+    </div>
+    <div class="navbar-nav navbar-right hidden-xs">
+      <button type="button" class="btn start count-down navbar-btn btn-primary">开始选房</button>
+    </div>
+  </div>
+</nav>
+<div id="main" class="container mask"></div>
+<nav id="footer" class="navbar navbar-default navbar-fixed-bottom visible-xs-block">
+  <div class="container">
+    <button type="button" class="btn start navbar-btn btn-primary btn-block">开始选房</button>
+  </div>
+</nav>
+<div id="modal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">选房结果</h4>
+      </div>
+      <div class="modal-body">
+        <p id="message"></p>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <script src="./dist/common.js"></script>
 <script src="./dist/index.js"></script>
 <script type="text/template" id="layoutTmpl">
@@ -25,28 +98,70 @@
   </div>
   <% } %>
   <% } %>
-  </script>
+</script>
 <script type="text/template" id="commonTmpl">
-  <div class="panel panel-default">
+  <section class="panel panel-default">
     <!-- Default panel contents -->
-    <div class="panel-heading text-center"><%= config.bNum %>号楼</div>
+    <header class="panel-heading text-center">
+      <strong><%= config.bNum %>号楼</strong>
+    </header>
     <!-- Table -->
     <table class="table table-bordered" style="table-layout: fixed;">
       <tbody>
         <% var building = config.building; %>
-        <% var room; %>
+        <% var room, roomNo; %>
         <% for(var f = 1; f <= config.fNum; f++) { %>
         <tr>
           <% for(var r = 1; r <= config.rNum; r++) { %>
-          <% room = f + '0' + r; %>
-          <td><%= room %></td>
-          <td class="result"></td>
+          <% roomNo = f + '0' + r; %>
+          <% room = building[f - 1][r - 1]; %>
+          <td class="room"><%= roomNo %></td>
+          <td class="result" data-title="<%= room.title %>" data-id="<%= room.id %>" data-layout="<%= room.layout %>"></td>
           <% } %>
         </tr>
         <% } %>
       </tbody>
     </table>
-  </div>
+  </section>
+</script>
+<script type="text/template" id="remainTmpl">
+  <section class="panel panel-default">
+    <!-- Default panel contents -->
+    <header class="panel-heading text-center">
+      <strong><%= config.bTitle %></strong>
+    </header>
+    <!-- Table -->
+    <table class="table table-bordered" style="table-layout: fixed;">
+      <thead>
+        <tr>
+          <th class="text-center">楼号</th>
+          <th class="text-center">房号</th>
+          <th></th>
+          <th class="text-center">楼号</th>
+          <th class="text-center">房号</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% var building = config.building; %>
+        <% var room, roomNo; %>
+        <% for(var i = 0; i < building.length / 2; i++) { %>
+        <tr>
+          <% room = building[i]; %>
+          <% roomNo = room.fIndex + '0' + room.rIndex; %>
+          <td class="text-center"><%= room.bIndex %></td>
+          <td class="room"><%= roomNo %></td>
+          <td class="result" data-title="<%= room.title %>" data-id="<%= room.id %>"></td>
+          <% room = building[i + building.length / 2]; %>
+          <% roomNo = room.fIndex + '0' + room.rIndex; %>
+          <td class="text-center"><%= room.bIndex %></td>
+          <td class="room"><%= roomNo %></td>
+          <td class="result" data-title="<%= room.title %>" data-id="<%= room.id %>" data-layout="<%= room.layout %>"></td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </section>
 </script>
 </body>
 </html>
