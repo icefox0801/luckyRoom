@@ -1,0 +1,25 @@
+<section class="panel panel-default">
+  <!-- Default panel contents -->
+  <header class="panel-heading text-center">
+    <strong><%= title %></strong>
+  </header>
+  <!-- Table -->
+  <table class="table table-bordered" style="table-layout: fixed;">
+    <tbody>
+      <% list.forEach(function (room) { %>
+        <% if (room.rNo === 1) { %>
+        <tr>
+        <% } %>
+        <% var roomNo = room.fNo + '0' + room.rNo; %>
+        <td class="room room<%= room.bedroom %>"><%= roomNo %></td>
+        <td class="result <%= room.selected && 'selected' %>"
+            data-title="<%= room.title %>"
+            data-id="<%= room.id %>"
+            data-bedroom="<%= room.bedroom %>"><%= room.score %></td>
+        <% if (room.rNo === room) { %>
+        </tr>
+        <% } %>
+      <% }); %>
+    </tbody>
+  </table>
+</section>
