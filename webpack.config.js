@@ -6,8 +6,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   entry: {
     index: ['./assets/index.js'],
-    manual: ['./assets/manual.js'],
-    jquery: ['jquery']
+    manual: ['./assets/manual.js']
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -19,9 +18,14 @@ module.exports = {
       test: /\.css$/i,
       loader: ExtractTextPlugin.extract(['css'])
     }, {
-      test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/,
-      loader: 'url-loader?limit=8192'
-    }, {
+      test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+      loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+    },
+    {
+      test: /\.(ttf|otf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?|(jpg|gif)$/,
+      loader: 'file-loader'
+    },
+    {
       test: /\.ejs$/,
       loader: 'underscore-template-loader'
     }]
