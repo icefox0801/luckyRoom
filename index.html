@@ -103,23 +103,22 @@
   <section class="panel panel-default">
     <!-- Default panel contents -->
     <header class="panel-heading text-center">
-      <strong><%= config.bNum %>号楼</strong>
+      <strong><%= title %></strong>
     </header>
     <!-- Table -->
     <table class="table table-bordered" style="table-layout: fixed;">
       <tbody>
-        <% var building = config.building; %>
-        <% var room, roomNo; %>
-        <% for(var f = 1; f <= config.fNum; f++) { %>
-        <tr>
-          <% for(var r = 1; r <= config.rNum; r++) { %>
-          <% roomNo = f + '0' + r; %>
-          <% room = building[f - 1][r - 1]; %>
-          <td class="room"><%= roomNo %></td>
-          <td class="result" data-title="<%= room.title %>" data-id="<%= room.id %>" data-layout="<%= room.layout %>"></td>
+        <% list.forEach(function (room) { %>
+          <% if (room.rNo === 1) { %>
+          <tr>
           <% } %>
-        </tr>
-        <% } %>
+          <% var roomNo = room.fNo + '0' + room.rNo; %>
+          <td class="room"><%= roomNo %></td>
+          <td class="result" data-title="<%= room.title %>" data-id="<%= room.id %>" data-bedroom="<%= room.bedroom %>"></td>
+          <% if (room.rNo === room) { %>
+          </tr>
+          <% } %>
+        <% }); %>
       </tbody>
     </table>
   </section>
@@ -128,7 +127,7 @@
   <section class="panel panel-default">
     <!-- Default panel contents -->
     <header class="panel-heading text-center">
-      <strong><%= config.bTitle %></strong>
+      <strong><%= title %></strong>
     </header>
     <!-- Table -->
     <table class="table table-bordered" style="table-layout: fixed;">
@@ -143,18 +142,17 @@
         </tr>
       </thead>
       <tbody>
-        <% var building = config.building; %>
         <% var room, roomNo; %>
-        <% for(var i = 0; i < building.length / 2; i++) { %>
+        <% for(var i = 0; i < list.length / 2; i++) { %>
         <tr>
-          <% room = building[i]; %>
-          <% roomNo = room.fIndex + '0' + room.rIndex; %>
-          <td class="text-center"><%= room.bIndex %></td>
+          <% room = list[i]; %>
+          <% roomNo = room.fNo + '0' + room.rNo; %>
+          <td class="text-center"><%= room.bNo %></td>
           <td class="room"><%= roomNo %></td>
           <td class="result" data-title="<%= room.title %>" data-id="<%= room.id %>"></td>
-          <% room = building[i + building.length / 2]; %>
-          <% roomNo = room.fIndex + '0' + room.rIndex; %>
-          <td class="text-center"><%= room.bIndex %></td>
+          <% room = list[i + list.length / 2]; %>
+          <% roomNo = room.fNo + '0' + room.rNo; %>
+          <td class="text-center"><%= room.bNo %></td>
           <td class="room"><%= roomNo %></td>
           <td class="result" data-title="<%= room.title %>" data-id="<%= room.id %>" data-layout="<%= room.layout %>"></td>
         </tr>
