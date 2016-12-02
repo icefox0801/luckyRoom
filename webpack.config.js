@@ -6,11 +6,12 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 module.exports = {
   entry: {
     index: ['./assets/index.js'],
-    manual: ['./assets/manual.js']
+    manual: ['./assets/manual.js'],
+    jquery: ['jquery']
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/dist',
+    publicPath: '/dist/', // 一定要加/
     filename: '[name].js'
   },
   module: {
@@ -18,14 +19,9 @@ module.exports = {
       test: /\.css$/i,
       loader: ExtractTextPlugin.extract(['css'])
     }, {
-      test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-      loader: 'url-loader?limit=10000&mimetype=application/font-woff'
-    },
-    {
-      test: /\.(ttf|otf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?|(jpg|gif)$/,
-      loader: 'file-loader'
-    },
-    {
+      test: /\.(png|jpg|gif|woff|woff2|eot|ttf|svg)$/,
+      loader: 'url-loader?limit=8192'
+    }, {
       test: /\.ejs$/,
       loader: 'underscore-template-loader'
     }]
