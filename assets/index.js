@@ -1,5 +1,4 @@
 'use strict';
-var template = require('lodash/template');
 var $ = require('jquery');
 require('bootstrap/dist/css/bootstrap.css');
 window.jQuery = window.$ = $;
@@ -8,6 +7,10 @@ require('bootstrap');
 var projectConfig = require('./config/project');
 var roomList = require('./roomList');
 var Person = require('./Person');
+
+var renderCommonTmpl = require('./template/common.ejs');
+var renderRemainTmpl = require('./template/remain.ejs');
+var renderLayoutTmpl = require('./template/layout.ejs');
 
 var app = {};
 // 总人数
@@ -22,7 +25,7 @@ app.personList = [];
 app.roomList = roomList;
 // 主DOM
 app.$main = null;
-// 开始选房按钮个
+// 开始选房按钮
 app.$start = null;
 // 程序入口
 app.initialize = function () {
@@ -82,12 +85,6 @@ app.markSelected = function () {
 app.renderTables = function () {
   var templateList = [];
   var data = null;
-  var commonTmpl = $('#commonTmpl').html();
-  var remainTmpl = $('#remainTmpl').html();
-  var layoutTmpl = $('#layoutTmpl').html();
-  var renderCommonTmpl = template(commonTmpl);
-  var renderRemainTmpl = template(remainTmpl);
-  var renderLayoutTmpl = template(layoutTmpl);
 
   projectConfig.forEach(function (config) {
     if (config.remain) {
@@ -138,7 +135,7 @@ app.finish = function (total, remain) {
   var $modal = $('#modal');
   var $message = $('#message');
   var $self = $('.self');
-  app.$main.addClass('mask');
+  app.$main.addClass('finish');
 
   if (!remain) {
     $message.text('很遗憾，您没有在规定时间内完成选房。有' + app.giveUpCount + '人放弃选房，还有' + app.remainDouble + '套两居室剩余');

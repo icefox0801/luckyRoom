@@ -36,7 +36,7 @@ Room.prototype = {
     var fScore = self.fScore * weightMap.fScore;
     var bScore = self.bScore * weightMap.bScore;
     var totalScore = bedroom + rScore + fScore + bScore;
-    return parseInt(totalScore, 10);
+    return totalScore;
   }
 };
 

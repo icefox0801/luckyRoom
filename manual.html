@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>渤海天易园选房参考指南</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+  <link rel="stylesheet" href="./dist/styles.css" type="text/css">
+  <style>
+    #main {
+      margin-top: 70px;
+      margin-bottom: 70px;
+    }
+    #main .room {
+      padding-left: 0;
+      padding-right: 0;
+      text-align: center;
+    }
+    #main .result {
+      padding-left: 0;
+      padding-right: 0;
+      text-align: center;
+    }
+    #main .selected{
+      position: relative;
+      color: #fff;
+    }
+    #main .selected:after {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-top: -10px;
+      margin-left: -10px;
+      background-color: red;
+    }
+    #main .room1 {
+      background-color: #d9edf7; /* info */
+    }
+    #main .room2 {
+      background-color: #dff0d8; /* success */
+    }
+  </style>
+</head>
+<body>
+<nav id="header" class="navbar navbar-default navbar-fixed-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <span class="navbar-brand">渤海天易园选房参考指南</span>
+      <h3 class="navbar-text pull-right visible-xs-block count-down-wrapper">
+        <span class="label label-warning count-down"></span>
+      </h3>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="dropdown">
+          <a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">列表 <span class="caret"></span></a>
+          <ul class="dropdown-menu" id="moreBest">
+          </ul>
+        </li>
+      </ul>
+      <div class="navbar-text navbar-right ">
+        <span>已选</span>
+        <strong id="selectCount" class="text-primary">-</strong>
+        <span>套，剩余</span>
+        <strong id="remainDouble" class="text-warning">-</strong>
+        <span>套两居室，剩余最佳：</span>
+        <strong id="remainBest" class="text-primary">-</strong>
+      </div>
+      </div>
+  </div>
+</nav>
+<div id="main" class="container"></div>
+<div id="modal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">
+          <span>提示</span>
+        </h4>
+      </div>
+      <div class="modal-body">
+        <p id="message"></p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        <button type="button" class="btn btn-primary" id="confirm">确定</button>
+        <a href="javascript:void(0)" id="clear" class="text-danger pull-left">
+          <small>
+            <i class="glyphicon glyphicon-trash"></i>
+            <span>清空所有</span>
+          </small>
+        </a>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script src="./dist/common.js"></script>
+<script src="./dist/manual.js"></script>
+</body>
+</html>
