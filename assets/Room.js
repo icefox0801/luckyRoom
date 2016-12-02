@@ -29,7 +29,7 @@ var Room = function (config, buildingNo, floorNo, roomNo) {
 Room.prototype = {
   constructor: Room,
   // 获取总分
-  getTotalScore (weightMap) {
+  getTotalScore: function (weightMap) {
     var self = this;
     var bedroom = (self.bedroom === 2 ? 5 : 4) * weightMap.bedroom;
     var rScore = self.rScore * weightMap.rScore;

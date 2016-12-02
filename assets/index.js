@@ -1,5 +1,5 @@
 'use strict';
-var _ = require('lodash');
+var template = require('lodash/template');
 var $ = require('jquery');
 require('bootstrap/dist/css/bootstrap.css');
 window.jQuery = window.$ = $;
@@ -49,8 +49,7 @@ app.start = function () {
       console.info('第%d人未选到房源');
     } else {
       console.info('第%d人选择了：[%s]%s', person.index, selected.bedroom, selected.title);
-      // 标记选择的房源
-      $('[data-id="' + selected.id + '"]').addClass('selected');
+      ;
     }
   });
 
@@ -60,6 +59,25 @@ app.start = function () {
 
   console.info('有%d人放弃选房，还有%d套两居室剩余', app.giveUpCount, app.remainDouble);
 };
+app.markSelected = function () {
+  var selectedList = app.roomList.filter(function (room) {
+    return room.selected;
+  });
+  var segment = 50;
+  var renderSegment = function (start, end) {
+    if (end >= selectedList.length - 1) return false;
+    var listStr = selectedList.slice(start, end).map(function (room) {
+      return '[data-id="' + room.id + '"]';
+    }).join(',');
+    // 标记选择的房源
+    $(listStr).addClass('selected');
+    setTimeout(function () {
+      renderSegment(start + segment, end + segment);
+    }, 0);
+  };
+
+  renderSegment(0, segment);
+};
 // 渲染所有列表
 app.renderTables = function () {
   var templateList = [];
@@ -67,9 +85,9 @@ app.renderTables = function () {
   var commonTmpl = $('#commonTmpl').html();
   var remainTmpl = $('#remainTmpl').html();
   var layoutTmpl = $('#layoutTmpl').html();
-  var renderCommonTmpl = _.template(commonTmpl);
-  var renderRemainTmpl = _.template(remainTmpl);
-  var renderLayoutTmpl = _.template(layoutTmpl);
+  var renderCommonTmpl = template(commonTmpl);
+  var renderRemainTmpl = template(remainTmpl);
+  var renderLayoutTmpl = template(layoutTmpl);
 
   projectConfig.forEach(function (config) {
     if (config.remain) {
@@ -150,6 +168,7 @@ $(function () {
     $footer.remove();
     $this.attr('disabled', true);
     app.start();
+    app.markSelected();
     app.countDown($cdElem, app.finish);
   });
 });
