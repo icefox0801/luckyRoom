@@ -14,7 +14,7 @@ var renderLayoutTmpl = require('./template/layout.ejs');
 
 var app = {};
 // 总人数
-app.COUNT = 680;
+app.COUNT = 480;
 // 放弃人数
 app.giveUpCount = 0;
 // 剩余两居室
@@ -68,7 +68,7 @@ app.markSelected = function () {
   });
   var segment = 50;
   var renderSegment = function (start, end) {
-    if (end >= selectedList.length - 1) return false;
+    if (start >= selectedList.length - 1) return false;
     var listStr = selectedList.slice(start, end).map(function (room) {
       return '[data-id="' + room.id + '"]';
     }).join(',');

@@ -31,6 +31,8 @@ app.remainBest = '';
 // 剩余最佳DOM
 app.$remainBest = null;
 // 更多最佳
+app.moreBest = [];
+// 更多最佳DOM
 app.$moreBest = null;
 // 房源列表
 app.roomList = roomList;
@@ -90,8 +92,12 @@ app.updatePrompt = function () {
   }).length;
   var unselected = app.roomList.filter(function (room) {
     return !room.selected;
-  }).sort(function (aRoom, bRoom) {
-    return bRoom.score - aRoom.score;
+  }).sort(function (aRoom, bRoom, index) {
+    var diff = bRoom.score - aRoom.score;
+    return diff || (bRoom.index - aRoom.index);
+  });
+  app.moreBest = unselected.slice(0, 10).map(function (room) {
+    return room.id;
   });
   var moreBestHTML = unselected.slice(0, 10).map(function (room) {
     return '<li><a href="javascript:void(0);">' + room.title + '</a></li>';
@@ -101,6 +107,10 @@ app.updatePrompt = function () {
   app.$remainDouble.text(app.remainDouble);
   app.$remainBest.text(unselected[0].title);
   app.$moreBest.html(moreBestHTML);
+  app.$main.find('.result').removeClass('best');
+  app.$main.find(app.moreBest.map(function (id) {
+    return '[data-id="' + id + '"]';
+  }).join(',')).addClass('best');
 };
 // 选择房源
 app.select = function (id) {

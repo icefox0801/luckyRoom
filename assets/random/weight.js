@@ -10,21 +10,18 @@ function randomWeightFactor () {
 module.exports = function () {
   var weightMap = factors.WEIGHT_MAP;
   var randomWeightMap = {};
-  var total = weightMap.bedroom + weightMap.rScore + weightMap.fScore + weightMap.bScore;
+  var total = weightMap.rScore + weightMap.fScore + weightMap.bScore;
   // 将所有权重进行波动
-  var randombedroom = weightMap.bedroom * randomWeightFactor();
   var randomRScore = weightMap.rScore * randomWeightFactor();
   var randomFScore = weightMap.fScore * randomWeightFactor();
   var randomBScore = weightMap.bScore * randomWeightFactor();
-  var randomTotal = randombedroom + randomRScore + randomFScore + randomBScore;
+  var randomTotal = randomRScore + randomFScore + randomBScore;
   // 将所有权重之和回归20
   var scale = total / randomTotal;
-  randomWeightMap.bedroom = randombedroom * scale;
   randomWeightMap.rScore = randomRScore * scale;
   randomWeightMap.fScore = randomFScore * scale;
   randomWeightMap.bScore = randomBScore * scale;
   // 保留两位小数
-  randomWeightMap.bedroom = parseFloat(randomWeightMap.bedroom.toFixed(2));
   randomWeightMap.rScore = parseFloat(randomWeightMap.rScore.toFixed(2));
   randomWeightMap.fScore = parseFloat(randomWeightMap.fScore.toFixed(2));
   randomWeightMap.bScore = parseFloat(randomWeightMap.bScore.toFixed(2));

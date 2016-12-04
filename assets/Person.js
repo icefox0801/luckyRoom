@@ -23,6 +23,7 @@ Person.prototype = {
       var aTotalScore, bTotalScore;
       aTotalScore = aRoom.getTotalScore(self.weight) * (aRoom.isTop ? self.topPrefer : 1);
       bTotalScore = bRoom.getTotalScore(self.weight) * (bRoom.isTop ? self.topPrefer : 1);
+
       return bTotalScore - aTotalScore;
     });
 

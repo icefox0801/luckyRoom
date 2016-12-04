@@ -12,10 +12,12 @@
         <% } %>
         <% var roomNo = room.fNo + '0' + room.rNo; %>
         <td class="room room<%= room.bedroom %>"><%= roomNo %></td>
-        <td class="result <%= room.selected && 'selected' %>"
+        <td class="result <%= room.selected ? 'selected' : '' %>"
             data-title="<%= room.title %>"
             data-id="<%= room.id %>"
-            data-bedroom="<%= room.bedroom %>"><%= room.score %></td>
+            data-bedroom="<%= room.bedroom %>">
+          <span class="badge"><%= room.score %></span>
+        </td>
         <% if (room.rNo === room) { %>
         </tr>
         <% } %>

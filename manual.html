@@ -16,6 +16,7 @@
       text-align: center;
     }
     #main .result {
+      cursor: pointer;
       padding-left: 0;
       padding-right: 0;
       text-align: center;
@@ -24,18 +25,23 @@
       position: relative;
       color: #fff;
     }
-    #main .selected:after {
+    #main .selected::after {
       content: '';
       display: block;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
+      width: 30px;
+      height: 14px;
       position: absolute;
       top: 50%;
       left: 50%;
-      margin-top: -10px;
-      margin-left: -10px;
+      margin-top: -7px;
+      margin-left: -15px;
       background-color: red;
+    }
+    #main .selected .badge {
+      display: none;
+    }
+    #main .best {
+      background: #f0ad4e;
     }
     #main .room1 {
       background-color: #d9edf7; /* info */

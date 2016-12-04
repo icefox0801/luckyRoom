@@ -31,11 +31,10 @@ Room.prototype = {
   // 获取总分
   getTotalScore: function (weightMap) {
     var self = this;
-    var bedroom = (self.bedroom === 2 ? 5 : 4) * weightMap.bedroom;
     var rScore = self.rScore * weightMap.rScore;
     var fScore = self.fScore * weightMap.fScore;
     var bScore = self.bScore * weightMap.bScore;
-    var totalScore = bedroom + rScore + fScore + bScore;
+    var totalScore = rScore + fScore + bScore;
     return totalScore;
   }
 };
