@@ -18,7 +18,7 @@
             data-bedroom="<%= room.bedroom %>">
           <span class="badge"><%= room.score %></span>
         </td>
-        <% if (room.rNo === room) { %>
+        <% if (room.rNo === room.config.room) { %>
         </tr>
         <% } %>
       <% }); %>

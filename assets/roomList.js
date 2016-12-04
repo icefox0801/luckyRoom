@@ -17,7 +17,7 @@ projectConfig.forEach(function (config) {
       room.index = roomList.length;
     });
   } else {
-    for (var floorNo = 1; floorNo <= config.floor; floorNo++) {
+    for (var floorNo = config.floor; floorNo >= 1; floorNo--) {
       for (var roomNo = 1; roomNo <= config.room; roomNo++) {
         room = new Room(config, config.building, floorNo, roomNo);
         roomList.push(room);
