@@ -14,7 +14,7 @@ var renderLayoutTmpl = require('./template/layout.ejs');
 
 var app = {};
 // 总人数
-app.COUNT = 480;
+app.COUNT = 680;
 // 放弃人数
 app.giveUpCount = 0;
 // 剩余两居室
